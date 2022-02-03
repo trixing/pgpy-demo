@@ -2,7 +2,11 @@
 
 A quick example of how to use plpython in Postgres
 to do a remote procedure call to a python interpreter running
-the flash application server.
+the flash application server. 
+
+An alternate method is provided using the Python subprocess
+module to call a local program, which can for example be used
+to run in an Anaconda or Virtualenv environment.
 
 Requires a working Docker installation.
 
@@ -51,3 +55,12 @@ curl "http://127.0.0.1:5000/?q=foo"
 
 curl -d q=bla "http://127.0.0.1:5000"
 ```
+
+
+## References
+
+* https://stackoverflow.com/questions/36275308/how-do-you-activate-an-anaconda-environment-within-a-python-script
+* https://stackoverflow.com/questions/5921664/how-to-change-python-version-used-by-plpython-on-mac-osx
+* https://hub.docker.com/_/postgres
+* https://docs.python-requests.org/en/latest/user/quickstart/
+
