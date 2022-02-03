@@ -11,14 +11,24 @@ to run in an Anaconda or Virtualenv environment.
 Requires a working Docker installation.
 
 
-## Build Docker Images
+## Build and Run
+
+The easy way is to use docker compose:
+
+```
+docker-compose up
+```
+
+Alternativly you can manually build and run the images
+
+### Build
 
 ```
 docker build -t trixing/pgpy/db db/
 docker build -t trixing/pgpy/web web/
 ```
 
-## Run Docker Images
+### Run
 
 ```
 docker network create pgpy-net
@@ -27,12 +37,31 @@ docker run --name pgpy-db --network pgpy-net \
 docker run --name pgpy-web -p 5000:5000 --network pgpy-net -d trixing/pgpy/web
 ```
 
+
 ## Test
 
 Connect to postgres, using the password above
+
+
+### Via adminer
+
+```
+http://localhost:8080
+```
+
+* Host: db
+* Username: postgres
+* Password: pg1234
+* Database: pgtest
+
+
+### Manual case
 ```
 docker run --rm --network pgpy-net -it postgres psql -h pgpy-db -U postgres pgtest
+
 ```
+
+### Run queries
 
 ```
 SELECT pyreq('foo');

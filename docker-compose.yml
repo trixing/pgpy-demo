@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  web:
+    build: web/
+    restart: always
+    ports:
+      - 5000:5000
+
+  db:
+    build: db/
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: pg1234
+      WEB_HOST: http://web:5000
+    ports:
+      - 5433:5432
+
+  # Use postgres/pg1234 user/password credentials
+  # Hostname db
+  # Database pgtest
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

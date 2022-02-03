@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+echo "$WEB_HOST"
+
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "template1" <<-EOSQL
     CREATE EXTENSION plpython3u;
 EOSQL
@@ -14,9 +16,11 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "pgtest" <<-EOSQL
 CREATE OR REPLACE FUNCTION pyreq(x text)
   RETURNS text
 AS \$\$
+  import os
   import requests
-  # or r = requests.post('http://pgpy-web:5000', data={'q': x})
-  r = requests.get('http://pgpy-web:5000', params={'q': x})
+  host = os.environ.get('WEB_HOST', 'http://pgpy-web:5000')
+  r = requests.get(host, params={'q': x})
+  # or r = requests.post(host, data={'q': x})
   j = r.json()
   return j['r']
 \$\$ LANGUAGE plpython3u;
