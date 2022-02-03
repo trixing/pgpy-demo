@@ -15,7 +15,7 @@ CREATE OR REPLACE FUNCTION pyreq(x text)
   RETURNS text
 AS \$\$
   import requests
-  # or r = requests.post('http://pgpy-web', data={'q': x})
+  # or r = requests.post('http://pgpy-web:5000', data={'q': x})
   r = requests.get('http://pgpy-web:5000', params={'q': x})
   j = r.json()
   return j['r']
