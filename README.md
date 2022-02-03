@@ -54,10 +54,16 @@ http://localhost:8080
 * Password: pg1234
 * Database: pgtest
 
+### Via local shell
 
-### Manual case
+```
+docker exec -it pgpy_db_1 psql -U postgres pgtest
+```
+
+### Or manual case without docker-compose
 ```
 docker run --rm --network pgpy-net -it postgres psql -h pgpy-db -U postgres pgtest
+docker exec -it pgpy-db psql -U postgres pgtest
 
 ```
 
